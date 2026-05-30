@@ -666,6 +666,13 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(228, 30, 38, 0.5);
         }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15); color: white; padding: 16px 40px; border-radius: 8px;
+            font-weight: 700; text-decoration: none; font-size: 20px; border: 2px solid white; cursor: pointer;
+            transition: all .3s; backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-3px); }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
         @media (max-width: 768px) {
             .hero {
                 padding: 160px 15px 90px;
@@ -1108,6 +1115,28 @@
         .cf-modal-overlay.active {
             display: block;
         }
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 2000; opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { display: block; opacity: 1; }
+        .modal-card {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; border-radius: 16px; max-width: 600px; width: 90%; max-height: 85vh;
+            overflow: hidden; z-index: 2001; box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        .modal-card.active { display: flex; flex-direction: column; }
+        .modal-header {
+            background: var(--blue); color: white; padding: 20px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .modal-header h2 { margin: 0; font-size: 24px; color: white; }
+        .modal-close {
+            background: rgba(255,255,255,0.2); border: none; color: white; font-size: 24px;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.3s;
+        }
+        .modal-close:hover { background: var(--red); transform: rotate(90deg); }
+        .modal-content { padding: 25px; overflow-y: auto; flex: 1; }
         footer {
             background: #1a1a1a;
             color: #b0b0b0;
@@ -1412,7 +1441,10 @@
         <div class="container">
             <h1>Authorized GE Appliance Repair<br>Bergen County, New Jersey</h1>
             <p>Same-Day Service • Factory-Trained Technicians • All Bergen County</p>
-            <button class="btn" id="heroCallNow">Request Service Today</button>
+            <div class="hero-buttons">
+                <button class="btn" id="heroCallNow">Request Service Today</button>
+                <button class="btn btn-secondary modal-trigger" data-modal="reviewsModal">★ Read Reviews</button>
+            </div>
         </div>
     </section>
     <section style="padding: 60px 0; background: #fff;" aria-labelledby="about-section-heading">
@@ -2151,6 +2183,68 @@
         </div>
     </div>
 
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Reviews Modal -->
+    <div class="modal-card" id="reviewsModal">
+        <div class="modal-header">
+            <h2>Customer Reviews</h2>
+            <button class="modal-close" data-close="modal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div id="elfsightContainer">
+                <div class="elfsight-app-2942fb52-4463-41bc-bc83-d831b9da6f0e"></div>
+            </div>
+            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;">
+                <button id="writeReviewBtn" style="background: linear-gradient(45deg, var(--red), #5a0f25); color: white; border: none; padding: 14px 35px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer;">Write Your Review</button>
+                <p style="margin-top: 12px; color: #666; font-size: 14px;">Had a great experience? Help others by sharing your story!</p>
+            </div>
+            <div style="text-align: center; margin-top: 25px; padding: 25px; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 12px;">
+                <p style="color: #fff; font-size: 18px; font-weight: 600; margin-bottom: 5px;">Ready to Book Your Repair?</p>
+                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">Same-day service available across Bergen County!</p>
+                <button id="reviewsCallBtn" style="background: linear-gradient(45deg, var(--red), #5a0f25); color: white; border: none; padding: 14px 40px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer;">Call Toll-Free</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Write Review Modal -->
+    <div class="modal-card" id="writeReviewModal" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2>Write a Review</h2>
+            <button class="modal-close" data-close="modal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <form id="reviewForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Your Name *</label>
+                    <input type="text" id="reviewName" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; box-sizing: border-box;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Your Rating *</label>
+                    <div id="starRating" style="display: flex; gap: 8px; font-size: 32px; cursor: pointer;">
+                        <span class="star" data-rating="1">☆</span>
+                        <span class="star" data-rating="2">☆</span>
+                        <span class="star" data-rating="3">☆</span>
+                        <span class="star" data-rating="4">☆</span>
+                        <span class="star" data-rating="5">☆</span>
+                    </div>
+                    <input type="hidden" id="reviewRating" value="0">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Your Review *</label>
+                    <textarea id="reviewText" required rows="5" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; box-sizing: border-box;" placeholder="Tell us about your experience..."></textarea>
+                </div>
+                <button type="submit" style="width: 100%; background: linear-gradient(45deg, var(--red), #5a0f25); color: white; border: none; padding: 14px; font-size: 16px; font-weight: 600; border-radius: 8px; cursor: pointer;">Submit Review</button>
+            </form>
+            <div id="reviewThankYou" style="display: none; text-align: center; padding: 40px 20px;">
+                <div style="font-size: 60px; margin-bottom: 20px;">✓</div>
+                <h3 style="color: #1a1a2e; margin-bottom: 15px;">Thank You for Your Review!</h3>
+                <p style="color: #666;">We appreciate you taking the time to share your experience.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- FAQ Section -->
     <section id="faq" style="padding: 80px 0; background: var(--gray);">
         <div class="container">
@@ -2391,6 +2485,7 @@
                     <a href="#faq">FAQ</a>
                     <a href="#service-areas">Service Areas</a>
                     <a href="#contact">Schedule Service</a>
+                    <a href="#" class="modal-trigger" data-modal="reviewsModal">Reviews</a>
                 </div>
                 <p>© 2025 GE Appliance Repair Bergen County. All Rights Reserved.</p>
                 <p>Licensed & Insured • Factory Certified Technicians • Same-Day Service Available</p>
@@ -2519,7 +2614,80 @@
             setupCallButton(document.getElementById('formCallNow'));
             setupCallButton(document.getElementById('heroCallNow'));
             setupCallButton(document.getElementById('ctaCallBtn'));
-            
+            setupCallButton(document.getElementById('reviewsCallBtn'));
+
+            // Modal functionality
+            var modalOverlay = document.getElementById('modalOverlay');
+            var reviewsModal = document.getElementById('reviewsModal');
+            var writeReviewModal = document.getElementById('writeReviewModal');
+
+            function openModal(modalId) {
+                modalOverlay.classList.add('active');
+                document.getElementById(modalId).classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeAllModals() {
+                modalOverlay.classList.remove('active');
+                if (reviewsModal) reviewsModal.classList.remove('active');
+                if (writeReviewModal) writeReviewModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Modal triggers
+            document.querySelectorAll('.modal-trigger').forEach(function(trigger) {
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var modalId = this.getAttribute('data-modal');
+                    openModal(modalId);
+                });
+            });
+
+            // Close modal buttons
+            document.querySelectorAll('.modal-close').forEach(function(btn) {
+                btn.addEventListener('click', closeAllModals);
+            });
+
+            // Close modal on overlay click
+            if (modalOverlay) modalOverlay.addEventListener('click', closeAllModals);
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeAllModals();
+            });
+
+            // Write Review button
+            var writeReviewBtn = document.getElementById('writeReviewBtn');
+            if (writeReviewBtn) {
+                writeReviewBtn.addEventListener('click', function() {
+                    document.getElementById('reviewsModal').classList.remove('active');
+                    document.getElementById('writeReviewModal').classList.add('active');
+                });
+            }
+
+            // Star rating functionality
+            var stars = document.querySelectorAll('#starRating .star');
+            stars.forEach(function(star) {
+                star.addEventListener('click', function() {
+                    var rating = this.dataset.rating;
+                    document.getElementById('reviewRating').value = rating;
+                    stars.forEach(function(s, i) {
+                        s.textContent = i < rating ? '★' : '☆';
+                        s.style.color = i < rating ? '#FFD700' : '#333';
+                    });
+                });
+            });
+
+            // Review form submission
+            var reviewForm = document.getElementById('reviewForm');
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    document.getElementById('reviewForm').style.display = 'none';
+                    document.getElementById('reviewThankYou').style.display = 'block';
+                });
+            }
+
             const cfContactForm = document.getElementById('cfContactForm');
             if (cfContactForm) {
                 cfContactForm.addEventListener('submit', function(e) {
@@ -2655,5 +2823,6 @@
         [id^="expandable-text-"].expanded { scrollbar-width: thin; scrollbar-color: var(--blue) #f1f1f1; }
     </style>
     <script>var emailjs=function(e){"use strict";class t{constructor(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0,t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"Network Error";this.status=e,this.text=t}}const i={origin:"https://api.emailjs.com",blockHeadless:!1,storageProvider:(()=>{if("undefined"!=typeof localStorage)return{get:e=>Promise.resolve(localStorage.getItem(e)),set:(e,t)=>Promise.resolve(localStorage.setItem(e,t)),remove:e=>Promise.resolve(localStorage.removeItem(e))}})()},r=e=>e?"string"==typeof e?{publicKey:e}:"[object Object]"===e.toString()?e:{}:{},o=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"https://api.emailjs.com";if(!e)return;const o=r(e);i.publicKey=o.publicKey,i.blockHeadless=o.blockHeadless,i.storageProvider=o.storageProvider,i.blockList=o.blockList,i.limitRate=o.limitRate,i.origin=o.origin||t},a=async function(e,r){let o=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};const a=await fetch(i.origin+e,{method:"POST",headers:o,body:r}),s=await a.text(),n=new t(a.status,s);if(a.ok)return n;throw n},s=(e,t,i)=>{if(!e||"string"!=typeof e)throw"The public key is required. Visit https://dashboard.emailjs.com/admin/account";if(!t||"string"!=typeof t)throw"The service ID is required. Visit https://dashboard.emailjs.com/admin";if(!i||"string"!=typeof i)throw"The template ID is required. Visit https://dashboard.emailjs.com/admin/templates"},n=e=>e.webdriver||!e.languages||0===e.languages.length,l=()=>new t(451,"Unavailable For Headless Browser"),c=(e,t)=>{if((e=>!e.list?.length||!e.watchVariable)(e))return!1;((e,t)=>{if(!Array.isArray(e))throw"The BlockList list has to be an array";if("string"!=typeof t)throw"The BlockList watchVariable has to be a string"})(e.list,e.watchVariable);const i=(r=t,o=e.watchVariable,r instanceof FormData?r.get(o):r[o]);var r,o;return"string"==typeof i&&e.list.includes(i)},d=()=>new t(403,"Forbidden"),m=async(e,t,i)=>{if(!t.throttle||!i)return!1;((e,t)=>{if("number"!=typeof e||e<0)throw"The LimitRate throttle has to be a positive number";if(t&&"string"!=typeof t)throw"The LimitRate ID has to be a non-empty string"})(t.throttle,t.id);const r=t.id||e,o=await(async(e,t,i)=>{const r=Number(await i.get(e)||0);return t-Date.now()+r})(r,t.throttle,i);return o>0||(await i.set(r,Date.now().toString()),!1)},h=()=>new t(429,"Too Many Requests"),p=async(e,t,o,p)=>{const u=r(p),b=u.publicKey||i.publicKey,g=u.blockHeadless||i.blockHeadless,f=u.storageProvider||i.storageProvider,w={...i.blockList,...u.blockList},y={...i.limitRate,...u.limitRate};if(g&&n(navigator))return Promise.reject(l());if(s(b,e,t),(e=>{if(e&&"[object Object]"!==e.toString())throw"The template params have to be the object. Visit https://www.emailjs.com/docs/sdk/send/"})(o),o&&c(w,o))return Promise.reject(d());if(await m(location.pathname,y,f))return Promise.reject(h());const v={lib_version:"4.4.1",user_id:b,service_id:e,template_id:t,template_params:o};return a("/api/v1.0/email/send",JSON.stringify(v),{"Content-type":"application/json"})},u=async(e,t,o,p)=>{const u=r(p),b=u.publicKey||i.publicKey,g=u.blockHeadless||i.blockHeadless,f=i.storageProvider||u.storageProvider,w={...i.blockList,...u.blockList},y={...i.limitRate,...u.limitRate};if(g&&n(navigator))return Promise.reject(l());const v=(e=>"string"==typeof e?document.querySelector(e):e)(o);s(b,e,t),(e=>{if(!e||"FORM"!==e.nodeName)throw"The 3rd parameter is expected to be the HTML form element or the style selector of the form"})(v);const j=new FormData(v);return c(w,j)?Promise.reject(d()):await m(location.pathname,y,f)?Promise.reject(h()):(j.append("lib_version","4.4.1"),j.append("service_id",e),j.append("template_id",t),j.append("user_id",b),a("/api/v1.0/email/send-form",j))};var b={init:o,send:p,sendForm:u,EmailJSResponseStatus:t};return e.EmailJSResponseStatus=t,e.default=b,e.init=o,e.send=p,e.sendForm=u,Object.defineProperty(e,"__esModule",{value:!0}),e}({});emailjs.init({publicKey:'zfCrLmZU8eK9CuZcs'});</script>
+    <script src="https://static.elfsight.com/platform/platform.js" async></script>
 </body>
 </html>
