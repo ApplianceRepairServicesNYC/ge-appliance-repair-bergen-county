@@ -944,6 +944,26 @@
             color: #1e3c72;
             font-weight: 600;
         }
+        .sa-slide ul li h3::after {
+            content: ' ▼';
+            font-size: 10px;
+            opacity: 0.5;
+        }
+        .sa-slide ul li.expanded h3::after {
+            content: ' ▲';
+        }
+        .town-zip {
+            display: none;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(30, 60, 114, 0.2);
+            font-size: 14px;
+            color: #003087;
+            font-weight: 500;
+        }
+        .sa-slide ul li.expanded .town-zip {
+            display: block;
+        }
         #cf-schedule-container {
             background: transparent;
             border: 2px solid #808080;
@@ -2116,78 +2136,76 @@
                         <div class="sa-slide">
                             <h2>All Bergen County NJ Towns We Service</h2>
                             <ul id="townsList">
-                                <li><h3>Allendale</h3></li>
-                                <li><h3>Alpine</h3></li>
-                                <li><h3>Bergenfield</h3></li>
-                                <li><h3>Bogota</h3></li>
-                                <li><h3>Carlstadt</h3></li>
-                                <li><h3>Cliffside Park</h3></li>
-                                <li><h3>Closter</h3></li>
-                                <li><h3>Cresskill</h3></li>
-                                <li><h3>Demarest</h3></li>
-                                <li><h3>Dumont</h3></li>
-                                <li><h3>East Rutherford</h3></li>
-                                <li><h3>Edgewater</h3></li>
-                                <li><h3>Elmwood Park</h3></li>
-                                <li><h3>Emerson</h3></li>
-                                <li><h3>Englewood</h3></li>
-                                <li><h3>Englewood Cliffs</h3></li>
-                                <li><h3>Fair Lawn</h3></li>
-                                <li><h3>Fairview</h3></li>
-                                <li><h3>Fort Lee</h3></li>
-                                <li><h3>Franklin Lakes</h3></li>
-                                <li><h3>Garfield</h3></li>
-                                <li><h3>Glen Rock</h3></li>
-                                <li><h3>Hackensack</h3></li>
-                                <li><h3>Harrington Park</h3></li>
-                                <li><h3>Hasbrouck Heights</h3></li>
-                                <li><h3>Haworth</h3></li>
-                                <li><h3>Hillsdale</h3></li>
-                                <li><h3>Ho-Ho-Kus</h3></li>
-                                <li><h3>Jersey City</h3></li>
-                                <li><h3>Leonia</h3></li>
-                                <li><h3>Little Ferry</h3></li>
-                                <li><h3>Lodi</h3></li>
-                                <li><h3>Lyndhurst</h3></li>
-                                <li><h3>Mahwah</h3></li>
-                                <li><h3>Maywood</h3></li>
-                                <li><h3>Midland Park</h3></li>
-                                <li><h3>Montvale</h3></li>
-                                <li><h3>Moonachie</h3></li>
-                                <li><h3>New Milford</h3></li>
-                                <li><h3>Newark</h3></li>
-                                <li><h3>North Arlington</h3></li>
-                                <li><h3>Northvale</h3></li>
-                                <li><h3>Norwood</h3></li>
-                                <li><h3>Oakland</h3></li>
-                                <li><h3>Old Tappan</h3></li>
-                                <li><h3>Oradell</h3></li>
-                                <li><h3>Palisades Park</h3></li>
-                                <li><h3>Paramus</h3></li>
-                                <li><h3>Park Ridge</h3></li>
-                                <li><h3>Ramsey</h3></li>
-                                <li><h3>Ridgefield</h3></li>
-                                <li><h3>Ridgefield Park</h3></li>
-                                <li><h3>Ridgewood</h3></li>
-                                <li><h3>River Edge</h3></li>
-                                <li><h3>River Vale</h3></li>
-                                <li><h3>Rochelle Park</h3></li>
-                                <li><h3>Rockleigh</h3></li>
-                                <li><h3>Rutherford</h3></li>
-                                <li><h3>Saddle Brook</h3></li>
-                                <li><h3>Saddle River</h3></li>
-                                <li><h3>South Hackensack</h3></li>
-                                <li><h3>Teaneck</h3></li>
-                                <li><h3>Tenafly</h3></li>
-                                <li><h3>Teterboro</h3></li>
-                                <li><h3>Upper Saddle River</h3></li>
-                                <li><h3>Waldwick</h3></li>
-                                <li><h3>Wallington</h3></li>
-                                <li><h3>Washington Township</h3></li>
-                                <li><h3>Westwood</h3></li>
-                                <li><h3>Woodcliff Lake</h3></li>
-                                <li><h3>Wood-Ridge</h3></li>
-                                <li><h3>Wyckoff</h3></li>
+                                <li><h3>Allendale</h3><div class="town-zip">ZIP: 07401</div></li>
+                                <li><h3>Alpine</h3><div class="town-zip">ZIP: 07620</div></li>
+                                <li><h3>Bergenfield</h3><div class="town-zip">ZIP: 07621</div></li>
+                                <li><h3>Bogota</h3><div class="town-zip">ZIP: 07603</div></li>
+                                <li><h3>Carlstadt</h3><div class="town-zip">ZIP: 07072</div></li>
+                                <li><h3>Cliffside Park</h3><div class="town-zip">ZIP: 07010</div></li>
+                                <li><h3>Closter</h3><div class="town-zip">ZIP: 07624</div></li>
+                                <li><h3>Cresskill</h3><div class="town-zip">ZIP: 07626</div></li>
+                                <li><h3>Demarest</h3><div class="town-zip">ZIP: 07627</div></li>
+                                <li><h3>Dumont</h3><div class="town-zip">ZIP: 07628</div></li>
+                                <li><h3>East Rutherford</h3><div class="town-zip">ZIP: 07073</div></li>
+                                <li><h3>Edgewater</h3><div class="town-zip">ZIP: 07020</div></li>
+                                <li><h3>Elmwood Park</h3><div class="town-zip">ZIP: 07407</div></li>
+                                <li><h3>Emerson</h3><div class="town-zip">ZIP: 07630</div></li>
+                                <li><h3>Englewood</h3><div class="town-zip">ZIP: 07631</div></li>
+                                <li><h3>Englewood Cliffs</h3><div class="town-zip">ZIP: 07632</div></li>
+                                <li><h3>Fair Lawn</h3><div class="town-zip">ZIP: 07410</div></li>
+                                <li><h3>Fairview</h3><div class="town-zip">ZIP: 07022</div></li>
+                                <li><h3>Fort Lee</h3><div class="town-zip">ZIP: 07024</div></li>
+                                <li><h3>Franklin Lakes</h3><div class="town-zip">ZIP: 07417</div></li>
+                                <li><h3>Garfield</h3><div class="town-zip">ZIP: 07026</div></li>
+                                <li><h3>Glen Rock</h3><div class="town-zip">ZIP: 07452</div></li>
+                                <li><h3>Hackensack</h3><div class="town-zip">ZIP: 07601</div></li>
+                                <li><h3>Harrington Park</h3><div class="town-zip">ZIP: 07640</div></li>
+                                <li><h3>Hasbrouck Heights</h3><div class="town-zip">ZIP: 07604</div></li>
+                                <li><h3>Haworth</h3><div class="town-zip">ZIP: 07641</div></li>
+                                <li><h3>Hillsdale</h3><div class="town-zip">ZIP: 07642</div></li>
+                                <li><h3>Ho-Ho-Kus</h3><div class="town-zip">ZIP: 07423</div></li>
+                                <li><h3>Leonia</h3><div class="town-zip">ZIP: 07605</div></li>
+                                <li><h3>Little Ferry</h3><div class="town-zip">ZIP: 07643</div></li>
+                                <li><h3>Lodi</h3><div class="town-zip">ZIP: 07644</div></li>
+                                <li><h3>Lyndhurst</h3><div class="town-zip">ZIP: 07071</div></li>
+                                <li><h3>Mahwah</h3><div class="town-zip">ZIP: 07430</div></li>
+                                <li><h3>Maywood</h3><div class="town-zip">ZIP: 07607</div></li>
+                                <li><h3>Midland Park</h3><div class="town-zip">ZIP: 07432</div></li>
+                                <li><h3>Montvale</h3><div class="town-zip">ZIP: 07645</div></li>
+                                <li><h3>Moonachie</h3><div class="town-zip">ZIP: 07074</div></li>
+                                <li><h3>New Milford</h3><div class="town-zip">ZIP: 07646</div></li>
+                                <li><h3>North Arlington</h3><div class="town-zip">ZIP: 07031</div></li>
+                                <li><h3>Northvale</h3><div class="town-zip">ZIP: 07647</div></li>
+                                <li><h3>Norwood</h3><div class="town-zip">ZIP: 07648</div></li>
+                                <li><h3>Oakland</h3><div class="town-zip">ZIP: 07436</div></li>
+                                <li><h3>Old Tappan</h3><div class="town-zip">ZIP: 07675</div></li>
+                                <li><h3>Oradell</h3><div class="town-zip">ZIP: 07649</div></li>
+                                <li><h3>Palisades Park</h3><div class="town-zip">ZIP: 07650</div></li>
+                                <li><h3>Paramus</h3><div class="town-zip">ZIP: 07652</div></li>
+                                <li><h3>Park Ridge</h3><div class="town-zip">ZIP: 07656</div></li>
+                                <li><h3>Ramsey</h3><div class="town-zip">ZIP: 07446</div></li>
+                                <li><h3>Ridgefield</h3><div class="town-zip">ZIP: 07657</div></li>
+                                <li><h3>Ridgefield Park</h3><div class="town-zip">ZIP: 07660</div></li>
+                                <li><h3>Ridgewood</h3><div class="town-zip">ZIP: 07450</div></li>
+                                <li><h3>River Edge</h3><div class="town-zip">ZIP: 07661</div></li>
+                                <li><h3>River Vale</h3><div class="town-zip">ZIP: 07675</div></li>
+                                <li><h3>Rochelle Park</h3><div class="town-zip">ZIP: 07662</div></li>
+                                <li><h3>Rockleigh</h3><div class="town-zip">ZIP: 07647</div></li>
+                                <li><h3>Rutherford</h3><div class="town-zip">ZIP: 07070</div></li>
+                                <li><h3>Saddle Brook</h3><div class="town-zip">ZIP: 07663</div></li>
+                                <li><h3>Saddle River</h3><div class="town-zip">ZIP: 07458</div></li>
+                                <li><h3>South Hackensack</h3><div class="town-zip">ZIP: 07606</div></li>
+                                <li><h3>Teaneck</h3><div class="town-zip">ZIP: 07666</div></li>
+                                <li><h3>Tenafly</h3><div class="town-zip">ZIP: 07670</div></li>
+                                <li><h3>Teterboro</h3><div class="town-zip">ZIP: 07608</div></li>
+                                <li><h3>Upper Saddle River</h3><div class="town-zip">ZIP: 07458</div></li>
+                                <li><h3>Waldwick</h3><div class="town-zip">ZIP: 07463</div></li>
+                                <li><h3>Wallington</h3><div class="town-zip">ZIP: 07057</div></li>
+                                <li><h3>Washington Township</h3><div class="town-zip">ZIP: 07676</div></li>
+                                <li><h3>Westwood</h3><div class="town-zip">ZIP: 07675</div></li>
+                                <li><h3>Woodcliff Lake</h3><div class="town-zip">ZIP: 07677</div></li>
+                                <li><h3>Wood-Ridge</h3><div class="town-zip">ZIP: 07075</div></li>
+                                <li><h3>Wyckoff</h3><div class="town-zip">ZIP: 07481</div></li>
                             </ul>
                         </div>
                     </div>
@@ -2605,7 +2623,22 @@
                     }
                 });
             }
-            
+
+            // Town ZIP code toggle
+            const townsList = document.getElementById('townsList');
+            if (townsList) {
+                townsList.addEventListener('click', function(e) {
+                    const li = e.target.closest('li');
+                    if (li) {
+                        li.classList.toggle('expanded');
+                        // Update dropdown height to accommodate expanded content
+                        if (saContent) {
+                            saContent.style.maxHeight = saContent.scrollHeight + 'px';
+                        }
+                    }
+                });
+            }
+
             const services = document.querySelectorAll('.service');
             services.forEach(function(service) {
                 service.addEventListener('click', function(e) {
